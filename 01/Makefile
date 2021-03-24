@@ -1,5 +1,4 @@
 all: program
-	./program
 
 program: mainTest.o Allocator.o
 	g++ mainTest.o Allocator.o -lgtest -lpthread -o program
@@ -12,3 +11,7 @@ Allocator.o: Allocator.cpp
 
 clean:
 	rm -rf *.o program
+
+test: program
+	./program
+	make clean
