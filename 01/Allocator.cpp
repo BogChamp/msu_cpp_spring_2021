@@ -32,11 +32,13 @@ char* Allocator::alloc(size_t size) {
     if (!allocatedArray)
         return nullptr;
 
+    if (static_cast<int>(size) <= 0)
+        return nullptr;
+
     if (maxSize < spaceUsed + size)
         return nullptr;
 
-    if (size <= 0)
-        return nullptr;
+    
 
     char* result = allocatedArray + spaceUsed;
     spaceUsed += size;

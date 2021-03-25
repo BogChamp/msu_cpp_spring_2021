@@ -111,6 +111,15 @@ void TEST7() {
     assert(tmp.alloc(1) == nullptr);
 }
 
+/*Проверяет alloc с отрицательными значениями*/
+void TEST8() {
+    Allocator tmp;
+    tmp.makeAllocator(10);
+    assert(tmp.alloc(-10) == nullptr);
+    tmp.makeAllocator(-100);
+    assert(tmp.alloc(-100) == nullptr);
+}
+
 int main(int argc, char** argv) {
     TEST1();
     TEST2();
@@ -119,5 +128,6 @@ int main(int argc, char** argv) {
     TEST5();
     TEST6();
     TEST7();
+    TEST8();
     return 0;
 }
