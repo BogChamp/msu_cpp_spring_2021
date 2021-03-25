@@ -1,42 +1,49 @@
 #include "Allocator.h"
 
 Allocator::Allocator() {
-    this->allocatedArray = nullptr;
-    this->maxSize = 0;
-    this->spaceUsed = 0;
+    allocatedArray = nullptr;
+    maxSize = 0;
+    spaceUsed = 0;
 }
 
 
 Allocator::~Allocator() {
-    if (this->allocatedArray) {
-        delete[] this->allocatedArray;
+    if (allocatedArray) {
+        delete[] allocatedArray;
     }
 }
 
-void Allocator::makeAllocator(size_t maxSize) {
-    if (this->allocatedArray) {
-        delete[] this->allocatedArray;
-        this->reset();
+void Allocator::makeAllocator(size_t othermaxSize) {
+    if (allocatedArray) {
+        delete[] allocatedArray;
+        reset();
     }
 
-    this->allocatedArray = new char[maxSize];
-    this->maxSize = maxSize;
+    if (static_cast<int>(othermaxSize) <= 0)
+        allocatedArray = nullptr;
+    else
+        allocatedArray = new char[othermaxSize];
+
+    maxSize = othermaxSize;
 }
 
 
 char* Allocator::alloc(size_t size) {
-    if (!this->allocatedArray)
+    if (!allocatedArray)
         return nullptr;
 
-    if (this->maxSize < this->spaceUsed + size)
+    if (maxSize < spaceUsed + size)
         return nullptr;
 
-    char* result = this->allocatedArray + this->spaceUsed;
-    this->spaceUsed += size;
+    if (size <= 0)
+        return nullptr;
+
+    char* result = allocatedArray + spaceUsed;
+    spaceUsed += size;
 
     return result;
 }
 
 void Allocator::reset() {
-    this->spaceUsed = 0;
+    spaceUsed = 0;
 }

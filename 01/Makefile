@@ -1,7 +1,7 @@
 all: program
 
 program: mainTest.o Allocator.o
-	g++ mainTest.o Allocator.o -lgtest -lpthread -o program
+	g++ mainTest.o Allocator.o -o program
 
 mainTest.o: mainTest.cpp
 	g++ -c mainTest.cpp
@@ -14,4 +14,3 @@ clean:
 
 test: program
 	./program
-	make clean
