@@ -1,5 +1,5 @@
-#ifndef MSU_CPP_SPRING_2021_02_MATRIX_H_
-#define MSU_CPP_SPRING_2021_02_MATRIX_H_
+#ifndef MSU_CPP_SPRING_2021_03_MATRIX_H_
+#define MSU_CPP_SPRING_2021_03_MATRIX_H_
 #include <iostream>
 
 class ProxyRow {  // прокси-класс
@@ -35,4 +35,4 @@ class Matrix {
     friend std::ostream& operator<<(std::ostream &out, const Matrix& other);
 };
 
-#endif // MSU_CPP_SPRING_2021_02_MATRIX_H_
+#endif  // MSU_CPP_SPRING_2021_03_MATRIX_H_

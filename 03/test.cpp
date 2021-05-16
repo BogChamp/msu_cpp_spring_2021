@@ -18,68 +18,68 @@ void TEST2() {
     assert(b[1][2] == 6);
 }
 
-void TEST3() { // проверяем, работает ли нормально сравнение
+void TEST3() {  // проверяем, работает ли нормально сравнение
     Matrix b(3, 4);
-    for(size_t i = 0; i < b.row_count(); ++i) {
-        for(size_t j = 0; j < b.column_count(); ++j) {
+    for (size_t i = 0; i < b.row_count(); ++i) {
+        for (size_t j = 0; j < b.column_count(); ++j) {
             b[i][j] = (int32_t)(i+j);
         }
     }
 
-    for(size_t i = 0; i < b.row_count(); ++i) {
-        for(size_t j = 0; j < b.column_count(); ++j) {
+    for (size_t i = 0; i < b.row_count(); ++i) {
+        for (size_t j = 0; j < b.column_count(); ++j) {
             assert(b[i][j] == (int32_t)(i + j));
         }
     }
 
     Matrix a(3, 4);
-    for(size_t i = 0; i < a.row_count(); ++i) {
-        for(size_t j = 0; j < a.column_count(); ++j) {
+    for (size_t i = 0; i < a.row_count(); ++i) {
+        for (size_t j = 0; j < a.column_count(); ++j) {
             a[i][j] = (int32_t)(2*i);
         }
     }
     assert(a != b);
     a = b;
     assert(a == b);
-    for(size_t i = 0; i < a.row_count(); ++i) {
-        for(size_t j = 0; j < a.column_count(); ++j) {
+    for (size_t i = 0; i < a.row_count(); ++i) {
+        for (size_t j = 0; j < a.column_count(); ++j) {
             assert(a[i][j] == (int32_t)(i + j));
         }
     }
 
-    Matrix v(1 ,2);
+    Matrix v(1, 2);
     assert(v != b);
 }
 
-void TEST4() { 
+void TEST4() {
     // проверяем, работает ли нормально умножение и сложение
     Matrix b(4, 4);
-    for(size_t i = 0; i < b.row_count(); ++i) {
-        for(size_t j = 0; j < b.column_count(); ++j) {
+    for (size_t i = 0; i < b.row_count(); ++i) {
+        for (size_t j = 0; j < b.column_count(); ++j) {
             b[i][j] = (int32_t)(i - j);
         }
     }
     b *= 5;
-    for(size_t i = 0; i < b.row_count(); ++i) {
-        for(size_t j = 0; j < b.column_count(); ++j) {
+    for (size_t i = 0; i < b.row_count(); ++i) {
+        for (size_t j = 0; j < b.column_count(); ++j) {
             assert(b[i][j] == (int32_t)(5 * (i - j)));
         }
     }
 
     Matrix v(4, 4);
-    for(size_t i = 0; i < v.row_count(); ++i) {
-        for(size_t j = 0; j < v.column_count(); ++j) {
+    for (size_t i = 0; i < v.row_count(); ++i) {
+        for (size_t j = 0; j < v.column_count(); ++j) {
             v[i][j] = (int32_t)(i * j);
         }
     }
     Matrix r(4, 4);
     r = b + v;
-    //здесь выводятся на экран 3 матрицы
+    // здесь выводятся на экран 3 матрицы
     std::cout << b << std::endl;
     std::cout << v << std::endl;
     std::cout << r << std::endl;
-    for(size_t i = 0; i < r.row_count(); ++i) {
-        for(size_t j = 0; j < r.column_count(); ++j) {
+    for (size_t i = 0; i < r.row_count(); ++i) {
+        for (size_t j = 0; j < r.column_count(); ++j) {
             assert(r[i][j] == (int32_t)(i * j + 5 * (i - j)));
         }
     }
@@ -88,8 +88,8 @@ void TEST4() {
 void TEST5() {  // проверям, работают ли исключения
     Matrix v(4, 4);
 
-    for(size_t i = 0; i < v.row_count(); ++i) {
-        for(size_t j = 0; j < v.column_count(); ++j) {
+    for (size_t i = 0; i < v.row_count(); ++i) {
+        for (size_t j = 0; j < v.column_count(); ++j) {
             v[i][j] = (int32_t)(i * j);
         }
     }
