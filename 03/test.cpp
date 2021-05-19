@@ -153,6 +153,37 @@ void TestDiffSizeMatrix() {
         key = 9;
     }
     assert(key == 9);
+
+    Matrix Q(4, 3);
+    for (size_t i = 0; i < Q.row_count(); ++i) {
+        for (size_t j = 0; j < Q.column_count(); ++j) {
+            Q[i][j] = (int32_t)(i);
+        }
+    }
+    try {
+        Matrix a = Q + v;
+    }
+    catch(const std::out_of_range& ) {
+        std::cout << "Cauht exception, diffrent matrix size" << std::endl;
+        key = 5;
+    }
+    assert(key == 5);
+
+    Matrix p(2, 4);
+    for (size_t i = 0; i < p.row_count(); ++i) {
+        for (size_t j = 0; j < p.column_count(); ++j) {
+            p[i][j] = (int32_t)(i);
+        }
+    }
+    try {
+        Matrix a = p + v;
+    }
+    catch(const std::out_of_range& ) {
+        std::cout << "Cauht exception, diffrent matrix size" << std::endl;
+        key = 19;
+    }
+    assert(key == 19);
+
 }
 
 int main() {
