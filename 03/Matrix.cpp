@@ -71,8 +71,15 @@ Matrix Matrix::operator+(const Matrix& other) const {
 }
 
 Matrix& Matrix::operator=(const Matrix& other) {
-    if ((rows != other.row_count()) || (columns != other.column_count()))
-        throw std::out_of_range("Size's of matricies should be the same");
+    if (matrix != nullptr)
+        delete[] matrix;
+    columns = other.column_count();
+    rows = other.row_count();
+
+    matrix = new ProxyRow[rows];
+    for (size_t i = 0; i < rows; ++i)
+        matrix[i] = ProxyRow(columns);
+
     for (size_t i = 0; i < rows; ++i) {
         for (size_t j = 0; j < columns; ++j) {
             matrix[i][j] = other[i][j];

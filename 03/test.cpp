@@ -2,14 +2,14 @@
 #include "Matrix.h"
 #include <cassert>
 
-void TEST1() {
+void TestMatrixSize() {
     Matrix b(5, 8);
     // проверяем, верное ли количество строк/столбцов
     assert(b.column_count() == 8);
     assert(b.row_count() == 5);
 }
 
-void TEST2() {
+void TestMatrixElement() {
     Matrix b(3, 4);
     b[0][1] = 5;
     b[1][2] = 6;
@@ -18,7 +18,7 @@ void TEST2() {
     assert(b[1][2] == 6);
 }
 
-void TEST3() {  // проверяем, работает ли нормально сравнение
+void TestMatrixEquals() {  // проверяем, работает ли нормально сравнение
     Matrix b(3, 4);
     for (size_t i = 0; i < b.row_count(); ++i) {
         for (size_t j = 0; j < b.column_count(); ++j) {
@@ -51,7 +51,7 @@ void TEST3() {  // проверяем, работает ли нормально 
     assert(v != b);
 }
 
-void TEST4() {
+void TestMatrixArithmetic() {
     // проверяем, работает ли нормально умножение и сложение
     Matrix b(4, 4);
     for (size_t i = 0; i < b.row_count(); ++i) {
@@ -85,7 +85,7 @@ void TEST4() {
     }
 }
 
-void TEST5() {  // проверям, работают ли исключения
+void TestIndexOutOfRange() {  // проверям, работают ли исключения
     Matrix v(4, 4);
 
     for (size_t i = 0; i < v.row_count(); ++i) {
@@ -94,32 +94,72 @@ void TEST5() {  // проверям, работают ли исключения
         }
     }
 
+    int key = 0;
     try {
         v[4][2] = 3;
     }
     catch(const std::out_of_range& ) {
+        key = 6;
         std::cout << "Cauht exception, wrong index row" << std::endl;
     }
-
+    assert(key == 6);
     try {
         v[1][6] = 3;
     }
     catch(const std::out_of_range& ) {
         std::cout << "Cauht exception, wrong index column" << std::endl;
+        key = 8;
     }
-
+    assert(key == 8);
     try {
         Matrix g(-1, 6);
     }
     catch(const std::out_of_range& ) {
         std::cout << "Cauht exception, wrong matrix size" << std::endl;
+        key = 1;
     }
+    assert(key == 1);
+    try {
+        Matrix m(2, 0);
+    }
+    catch(const std::out_of_range& ) {
+        std::cout << "Cauht exception, wrong matrix size" << std::endl;
+        key = 100;
+    }
+    assert(key == 100);
+}
+
+void TestDiffSizeMatrix() {
+    Matrix v(4, 4);
+    for (size_t i = 0; i < v.row_count(); ++i) {
+        for (size_t j = 0; j < v.column_count(); ++j) {
+            v[i][j] = (int32_t)(i);
+        }
+    }
+
+    Matrix q(2, 3);
+    for (size_t i = 0; i < q.row_count(); ++i) {
+        for (size_t j = 0; j < q.column_count(); ++j) {
+            q[i][j] = (int32_t)(i);
+        }
+    }
+
+    int key = 0;
+    try {
+        Matrix a = v + q;
+    }
+    catch(const std::out_of_range& ) {
+        std::cout << "Cauht exception, diffrent matrix size" << std::endl;
+        key = 9;
+    }
+    assert(key == 9);
 }
 
 int main() {
-    TEST1();
-    TEST2();
-    TEST3();
-    TEST4();
-    TEST5();
+    TestMatrixSize();
+    TestMatrixElement();
+    TestMatrixEquals();
+    TestMatrixArithmetic();
+    TestIndexOutOfRange();
+    TestDiffSizeMatrix();
 }
