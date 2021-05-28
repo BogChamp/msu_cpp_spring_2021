@@ -27,7 +27,7 @@ void TestPlus() {
     assert(a1 + a2 == a2 + a1);
     assert(a1 + a2 == BigInt("0"));
 
-    c2 = BigInt ("-1");
+    c2 = BigInt("-1");
     c1 = BigInt("100000000000000");
     assert(c1 + c2 == BigInt("99999999999999"));
 }
@@ -99,9 +99,9 @@ void TestUnarMinus() {
     assert(-b == b);
     assert(-b == 0);
     BigInt c("5354737345335435235");
-    assert (-c == BigInt("-5354737345335435235"));
+    assert(-c == BigInt("-5354737345335435235"));
     BigInt d("-183781937421432");
-    assert (-d == BigInt("183781937421432"));
+    assert(-d == BigInt("183781937421432"));
 }
 
 void TestCompare() {

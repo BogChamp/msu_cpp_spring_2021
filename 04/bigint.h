@@ -7,6 +7,7 @@ class BigInt {
     bool sign;
     uint32_t* vector;
     size_t length;
+
  public:
     BigInt(int32_t num = 0);
     BigInt(const std::string& num);

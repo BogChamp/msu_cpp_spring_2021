@@ -53,17 +53,17 @@ BigInt BigInt::operator+(const BigInt& other) const {
     if (length > other.length) {
         if (sign == other.sign)
             return sum(*this, other);
-        else 
+        else
             return dif(*this, other);
     } else if (length < other.length) {
         if (sign == other.sign)
             return sum(other, *this);
-        else 
+        else
             return dif(other, *this);
     } else {
-        if (sign == other.sign)
+        if (sign == other.sign) {
             return sum(*this, other);
-        else { 
+        } else {
             for (size_t i = 0; i < length; ++i) {
                 if (vector[length - i - 1] < other.vector[length - i - 1])
                     return dif(other, *this);
@@ -79,26 +79,25 @@ BigInt BigInt::operator-(const BigInt& other) const {
     if (length > other.length) {
         if (sign == other.sign)
             return dif(*this, other);
-        else 
+        else
             return sum(*this, other);
     } else if (length < other.length) {
         BigInt tmp(other);
         tmp.sign = !tmp.sign;
         if (sign == other.sign)
             return dif(tmp, *this);
-        else 
+        else
             return sum(tmp, *this);
     } else {
-        if (sign != other.sign)
+        if (sign != other.sign) {
             return sum(*this, other);
-        else {
+        } else {
             for (size_t i = 0; i < length; ++i) {
                 if (vector[length - i - 1] < other.vector[length - i - 1]) {
                     BigInt tmp(other);
                     tmp.sign = !tmp.sign;
                     return dif(tmp, *this);
-                }
-                else if (vector[length - i - 1] > other.vector[length - i - 1]) {
+                } else if (vector[length - i - 1] > other.vector[length - i - 1]) {
                     return dif(*this, other);
                 }
             }
@@ -124,7 +123,7 @@ BigInt BigInt::operator*(const BigInt& other) const {
             tmp.vector[i + j] = add % MAX_SIZE;
             add /= MAX_SIZE;
         }
-        tmp.vector[i + length] = add; 
+        tmp.vector[i + length] = add;
         add = 0;
     }
 
@@ -318,7 +317,7 @@ BigInt BigInt::sum(const BigInt& first, const BigInt& second) const {
     tmp.vector = new uint32_t[tmp.length + 1];
     tmp.sign = first.sign;
     int64_t add = 0;
-        
+
     for (size_t i = 0; i < second.length; ++i) {
         add += first.vector[i] + second.vector[i];
         if (add >= (int64_t)MAX_SIZE) {
@@ -359,7 +358,7 @@ BigInt BigInt::dif(const BigInt& first, const BigInt& second) const {
     for (size_t i = 0; i < second.length; ++i) {
         add = first.vector[i] - second.vector[i] - (int32_t)(add < 0);
         if (add < 0) {
-            tmp.vector[i] = add + MAX_SIZE; 
+            tmp.vector[i] = add + MAX_SIZE;
         } else {
             tmp.vector[i] = add;
         }
@@ -368,7 +367,7 @@ BigInt BigInt::dif(const BigInt& first, const BigInt& second) const {
     for (size_t i = second.length; i < first.length; ++i) {
         add = first.vector[i] - (int32_t)(add < 0);
         if (add < 0) {
-            tmp.vector[i] = add + MAX_SIZE; 
+            tmp.vector[i] = add + MAX_SIZE;
         } else {
             tmp.vector[i] = add;
         }
