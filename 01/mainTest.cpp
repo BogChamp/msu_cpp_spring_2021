@@ -120,7 +120,7 @@ void TEST8() {
     assert(tmp.alloc(-100) == nullptr);
 }
 
-int main(int argc, char** argv) {
+int main() {
     TEST1();
     TEST2();
     TEST3();

@@ -1,16 +1,19 @@
-all: program
+CPPFLAGS = -std=c++17 -Wall -Wextra -Werror -g
 
-program: mainTest.o Allocator.o
-	g++ mainTest.o Allocator.o -o program
+all: Allocator.o mainTest.o
+		g++ Allocator.o mainTest.o -o main
 
-mainTest.o: mainTest.cpp
-	g++ -c mainTest.cpp
+test: Allocator.o mainTest.o
+		g++ mainTest.o Allocator.o -o test
+		./test
 
-Allocator.o: Allocator.cpp
-	g++ -c Allocator.cpp
-
+.PHONY: clean
 clean:
-	rm -rf *.o program
+		rm -f *.o
 
-test: program
-	./program
+.PHONY: fclean
+fclean:
+		rm -f *.o
+		rm main
+		rm test
+
