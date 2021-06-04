@@ -12,7 +12,7 @@ class Serializer {
     std::ostream& out_;
 
  public:
-    Serializer(std::ostream& out) : out_(out) {
+    explicit Serializer(std::ostream& out) : out_(out) {
     }
 
     template <class T>
@@ -34,7 +34,6 @@ class Serializer {
     template<class T, class... Args>
     Error process(T&& arg, Args&&... args) {
         if (save_(arg) == Error::CorruptedArchive) {
-            std::cout << arg << std::endl;
             return Error::CorruptedArchive;
         }
         return process(std::forward<Args>(args)...);
@@ -78,11 +77,12 @@ class Deserializer {
     Error operator()(Args&&... args) {
         return process(std::forward<Args>(args)...);
     }
-    
+
  private:
     template<class T>
     Error process(T&& arg) {
-        return load_(arg);
+        auto tmp = load_(arg);
+        return tmp;
     }
 
     template<class T, class... Args>
@@ -98,6 +98,8 @@ class Deserializer {
     }
 
     Error load_(uint64_t& arg) {
+        if (in_.eof())
+            return Error::CorruptedArchive;
         std::string str;
         in_ >> str;
 
@@ -111,6 +113,8 @@ class Deserializer {
     }
 
     Error load_(bool& arg) {
+        if (in_.eof())
+            return Error::CorruptedArchive;
         std::string str;
         in_ >> str;
 
@@ -120,7 +124,6 @@ class Deserializer {
             arg = false;
         else
             return Error::CorruptedArchive;
-
         return Error::NoError;
     }
 };
